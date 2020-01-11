@@ -9,11 +9,12 @@ const subscribeMsg = {
 
 export default function App() {
   const [socket, setSocket] = useState("");
-  const [runsocket, setRunSocket] = useState(true);
+  const [runsocket, setRunSocket] = useState("");
 
   useEffect(() => {
-    console.log(runsocket);
-    runsocket ? runSocket() : disableSocket();
+    if (typeof runsocket === "boolean") {
+      runsocket ? runSocket() : disableSocket();
+    }
   }, [runsocket]);
 
   const runSocket = _ => {
@@ -38,7 +39,9 @@ export default function App() {
 
   return (
     <div className="App">
-      <button onClick={() => setRunSocket(!runsocket)}>Stop socket</button>
+      <button onClick={() => setRunSocket(!runsocket)}>
+        {runsocket ? "Stop socket" : "Start socket"}
+      </button>
     </div>
   );
 }
